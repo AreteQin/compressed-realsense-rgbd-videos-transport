@@ -153,11 +153,11 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
-add_executable(receiver src/receiver.cpp)
-target_link_libraries(receiver ${OpenCV_LIBS} ${catkin_LIBRARIES})
+add_executable(D435_receiver src/receiver.cpp)
+target_link_libraries(D435_receiver ${OpenCV_LIBS} ${catkin_LIBRARIES})
 
-add_executable(publisher src/publisher.cpp)
-target_link_libraries(publisher ${OpenCV_LIBS} ${catkin_LIBRARIES} ${realsense2_LIBRARY})
+add_executable(D435_publisher src/publisher.cpp)
+target_link_libraries(D435_publisher ${OpenCV_LIBS} ${catkin_LIBRARIES} ${realsense2_LIBRARY})
 
 #############
 ## Install ##

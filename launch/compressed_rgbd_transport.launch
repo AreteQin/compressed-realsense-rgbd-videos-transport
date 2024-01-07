@@ -1,9 +1,9 @@
 <launch>
 
-  <node name="publisher" pkg="compressed_realsense_rgbd_videos_transport" type="publisher" />
+  <node name="D435_publisher" pkg="compressed_realsense_rgbd_videos_transport" type="D435_publisher" />
 
-  <node name="receiver" pkg="compressed_realsense_rgbd_videos_transport" type="receiver" args="_image_transport:=compressed" />
+  <node name="D435_receiver" pkg="compressed_realsense_rgbd_videos_transport" type="D435_receiver" args="_image_transport:=compressed" />
 
-  <node name="dynamic_parameter" pkg="dynamic_reconfigure" type="dynparam" args="set D435/depth/compressed format 'png'" />
+  <node name="dynamic_parameter" pkg="dynamic_reconfigure" type="dynparam" args="set /camera/depth/image_rect_raw/compressed format 'png'" />
 
 </launch>
