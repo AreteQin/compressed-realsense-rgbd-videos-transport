@@ -32,6 +32,11 @@ int main(int argc, char **argv) {
 //    rs2::frame color_frame = color_map.colorize(data.get_color_frame());
         rs2::frame color_frame = data.get_color_frame();
         rs2::frame depth_frame = data.get_depth_frame();
+
+        // set header time stamp
+        std_msgs::Header header;
+        header.stamp = ros::Time::now();
+
         // Query frame size (width and height)
 //        const int w = depth_frame.as<rs2::video_frame>().get_width();
 //        const int h = depth_frame.as<rs2::video_frame>().get_height();
@@ -45,8 +50,8 @@ int main(int argc, char **argv) {
 //        cv::waitKey(1);
 
 //    depth_cv = cv::Mat(cv::Size(640, 480), CV_8UC3, (void *) depth_frame.get_data(), cv::Mat::AUTO_STEP);
-        pub_color.publish(cv_bridge::CvImage(std_msgs::Header(), "bgr8", color_cv).toImageMsg());
-        pub_depth.publish(cv_bridge::CvImage(std_msgs::Header(), "mono16", depth_cv).toImageMsg());
+        pub_color.publish(cv_bridge::CvImage(header, "bgr8", color_cv).toImageMsg());
+        pub_depth.publish(cv_bridge::CvImage(header, "mono16", depth_cv).toImageMsg());
         ros::spinOnce();
     }
 }
