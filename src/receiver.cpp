@@ -31,9 +31,9 @@ int main(int argc, char **argv) {
     image_transport::ImageTransport it(image_listener);
     image_transport::Subscriber sub_color = it.subscribe("/camera/color/image_raw", 1, ColorCallback);
     image_transport::Subscriber sub_depth = it.subscribe("/camera/depth/image_rect_raw", 1, DepthCallback);
-    ros::Rate rate(30.0);
+//    ros::Rate rate(30.0);
     while (image_listener.ok()) {
         ros::spinOnce(); // ros::spin执行所有subscriber和advertiser
-        rate.sleep();
+//        rate.sleep();
     }
 }
