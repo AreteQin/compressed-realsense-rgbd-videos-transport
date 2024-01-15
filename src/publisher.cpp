@@ -16,11 +16,15 @@ int main(int argc, char **argv) {
     cfg.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 30);
     // Start streaming with the default recommended configuration
     pipe.start(cfg);
+    // Get camera info
+    const rs2::video_stream_profile color_stream_ = pipe.get_active_profile().get_stream(
+            RS2_STREAM_COLOR).as<rs2::video_stream_profile>();
 
     //image_transport will publish the video that can be compressed
     image_transport::ImageTransport it(nh);
     image_transport::Publisher pub_color = it.advertise("/camera/color/image_raw", 1);
     image_transport::Publisher pub_depth = it.advertise("/camera/depth/image_rect_raw", 1);
+    ros::Publisher pub_camera_info = nh.advertise<sensor_msgs::CameraInfo>("/D435/camera_info", 1);
 
     cv::Mat color_cv, depth_cv;
 //    cv::namedWindow("D435/color");
@@ -52,6 +56,19 @@ int main(int argc, char **argv) {
 //    depth_cv = cv::Mat(cv::Size(640, 480), CV_8UC3, (void *) depth_frame.get_data(), cv::Mat::AUTO_STEP);
         pub_color.publish(cv_bridge::CvImage(header, "bgr8", color_cv).toImageMsg());
         pub_depth.publish(cv_bridge::CvImage(header, "mono16", depth_cv).toImageMsg());
+
+        // pubish camera info
+        sensor_msgs::CameraInfoPtr camera_info_msg(new sensor_msgs::CameraInfo());
+        camera_info_msg->header.frame_id = "D435";
+        camera_info_msg->width = color_stream_.width();
+        camera_info_msg->height = color_stream_.height();
+        camera_info_msg->distortion_model = "plumb_bob";
+        camera_info_msg->D = {0.0, 0.0, 0.0, 0.0, 0.0};
+        camera_info_msg->K = {color_stream_.get_intrinsics().fx, 0.0, color_stream_.get_intrinsics().ppx,
+                              0.0, color_stream_.get_intrinsics().fy, color_stream_.get_intrinsics().ppy,
+                              0.0, 0.0, 1.0};
+        pub_camera_info.publish(camera_info_msg);
+
         ros::spinOnce();
     }
 }
