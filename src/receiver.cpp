@@ -5,11 +5,11 @@
 
 void ColorCallback(const sensor_msgs::ImageConstPtr &msg) {
     try {
-        cv::imshow("/camera/color/image_raw", cv_bridge::toCvShare(msg, "bgr8")->image);
+        cv::imshow("/camera/color/image_raw", cv_bridge::toCvShare(msg, "rgb8")->image);
         cv::waitKey(1);
     }
     catch (cv_bridge::Exception &e) {
-        ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
+        ROS_ERROR("Could not convert from '%s' to 'rgb8'.", msg->encoding.c_str());
     }
 }
 
