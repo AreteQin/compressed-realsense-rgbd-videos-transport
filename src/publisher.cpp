@@ -7,7 +7,6 @@
 int main(int argc, char **argv) {
     ros::init(argc, argv, "pub_cam_node");
     ros::NodeHandle nh;
-
     // Declare the RealSense pipeline, encapsulating the actual device and sensors
     std::unique_ptr<rs2::pipeline> pipe;
     rs2::config cfg;
@@ -16,12 +15,12 @@ int main(int argc, char **argv) {
     cfg.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 30);
     // Start streaming with the default recommended configuration
     rs2::pipeline_profile profile = pipe->start(cfg);
-
+    // set depth image format parameter "D435.depth.format" to "png"
+    nh.setParam("/camera/depth/image_rect_raw/compressed/format", "png");
     //image_transport will publish the video that can be compressed
     image_transport::ImageTransport it(nh);
     image_transport::Publisher pub_color = it.advertise("/camera/color/image_raw", 1);
     image_transport::Publisher pub_depth = it.advertise("/camera/depth/image_rect_raw", 1);
-
     cv::Mat color_cv, depth_cv;
 
     while (ros::ok()) {
