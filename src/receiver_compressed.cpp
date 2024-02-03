@@ -29,6 +29,7 @@ void DepthCallback(const sensor_msgs::ImageConstPtr &msg) {
 int main(int argc, char **argv) {
     ros::init(argc, argv, "image_listener");
     ros::NodeHandle image_listener;
+    image_listener.setParam("image_transport", "compressed");
     cv::namedWindow("/camera/color/image_raw");
     cv::namedWindow("/camera/depth/image_rect_raw");
     image_transport::ImageTransport it(image_listener);

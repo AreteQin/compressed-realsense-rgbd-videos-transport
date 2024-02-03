@@ -159,6 +159,12 @@ target_link_libraries(D435_receiver ${OpenCV_LIBS} ${catkin_LIBRARIES})
 add_executable(D435_publisher src/publisher.cpp)
 target_link_libraries(D435_publisher ${OpenCV_LIBS} ${catkin_LIBRARIES} ${realsense2_LIBRARY})
 
+add_executable(D435_receiver_compressed src/receiver_compressed.cpp)
+target_link_libraries(D435_receiver_compressed ${OpenCV_LIBS} ${catkin_LIBRARIES})
+
+add_executable(D435_publisher_compressed src/publisher_compressed.cpp)
+target_link_libraries(D435_publisher_compressed ${OpenCV_LIBS} ${catkin_LIBRARIES} ${realsense2_LIBRARY})
+
 add_executable(D435_publisher_aligned src/publisher_aligned.cpp)
 target_link_libraries(D435_publisher_aligned ${OpenCV_LIBS} ${catkin_LIBRARIES} ${realsense2_LIBRARY})
 
