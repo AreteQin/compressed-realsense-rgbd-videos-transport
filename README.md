@@ -38,5 +38,5 @@ roslaunch compressed_realsense_rgbd_videos_transport compressed_rgbd_transport.l
 
 ### Change the depth image encoding
 ```
-rosrun dynamic_reconfigure dynparam set /D435/depth/compressed format png
+rosrun dynamic_reconfigure dynparam set /camera/depth/image_rect_raw/compressed format png
 ```
