@@ -33,7 +33,8 @@ catkin build
 ```
 ### Run the launch file
 ```
-roslaunch compressed_realsense_rgbd_videos_transport compressed_rgbd_transport.launch
+rosrun compressed_realsense_rgbd_videos_transport D435_receiver_compressed _image_transport:=compressed
+rosrun compressed_realsense_rgbd_videos_transport D435_receiver_compressed _image_transport:=raw
 ```
 
 ### Change the depth image encoding
