@@ -19,8 +19,8 @@ int main(int argc, char **argv) {
     nh.setParam("/camera/depth/image_rect_raw/compressed/format", "png");
     //image_transport will publish the video that can be compressed
     image_transport::ImageTransport it(nh);
-    image_transport::Publisher pub_color = it.advertise("/camera/color/image_raw", 1);
-    image_transport::Publisher pub_depth = it.advertise("/camera/depth/image_rect_raw", 1);
+    image_transport::Publisher pub_color = it.advertise("/camera/color/image_raw", 10);
+    image_transport::Publisher pub_depth = it.advertise("/camera/depth/image_rect_raw", 10);
     cv::Mat color_cv, depth_cv;
 
     while (ros::ok()) {

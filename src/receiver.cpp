@@ -30,8 +30,8 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "image_listener");
     ros::NodeHandle image_listener;
     image_transport::ImageTransport it(image_listener);
-    image_transport::Subscriber sub_color = it.subscribe("/camera/color/image_raw", 1, ColorCallback);
-    image_transport::Subscriber sub_depth = it.subscribe("/camera/depth/image_rect_raw", 1, DepthCallback);
+    image_transport::Subscriber sub_color = it.subscribe("/camera/color/image_raw", 10, ColorCallback);
+    image_transport::Subscriber sub_depth = it.subscribe("/camera/depth/image_rect_raw", 10, DepthCallback);
     ros::Rate rate(30.0);
     while (image_listener.ok()) {
         ros::spinOnce();
