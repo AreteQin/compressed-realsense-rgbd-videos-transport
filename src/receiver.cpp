@@ -11,9 +11,6 @@ void ColorCallback(const sensor_msgs::ImageConstPtr &msg) {
     catch (cv_bridge::Exception &e) {
         ROS_ERROR("Could not convert from '%s' to 'rgb8'.", msg->encoding.c_str());
     }
-    // calculate time delay
-    auto now = ros::Time::now();
-    ROS_INFO("time delay: %f", now.toSec() - (msg->header.stamp.sec + msg->header.stamp.nsec * 1e-9));
 }
 
 void DepthCallback(const sensor_msgs::ImageConstPtr &msg) {
